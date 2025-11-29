@@ -1,0 +1,13 @@
+pyable_ml/__pycache__/
+*.pyc
+__pycache__/
+.ipynb_checkpoints/
+.vscode/
+.DS_Store
+.env
+.env.*
+logs/
+data/
+models/
+outputs/
+

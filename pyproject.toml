@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[project]
+name = "pyable-ml"
+version = "0.1.0"
+authors = [
+  { name="Dr. Eros Montin, PhD", email="eros.montin@gmail.com" },
+]
+description = "Shared ML utilities for pyfe and treno - Optuna, logging, model IO, plotting, training helpers"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy>=1.21.0",
+    "pandas>=1.3.0",
+    "scikit-learn>=1.0.0",
+]
+
+[project.optional-dependencies]
+optuna = [
+    "optuna>=3.0.0",
+]
+plotting = [
+    "matplotlib>=3.3.0",
+    "seaborn>=0.11.0",
+]
+torch = [
+    "torch>=2.0.0",
+]
+mlflow = [
+    "mlflow>=2.0.0",
+]
+all = [
+    "optuna>=3.0.0",
+    "matplotlib>=3.3.0",
+    "seaborn>=0.11.0",
+    "torch>=2.0.0",
+    "mlflow>=2.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/erosmontin/pyable-ml"
+"Bug Tracker" = "https://github.com/erosmontin/pyable-ml/issues"
