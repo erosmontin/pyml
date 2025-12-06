@@ -121,3 +121,16 @@ Please open issues or PRs on the GitHub repository `https://github.com/erosmonti
 
 MIT — see the `LICENSE` file.
 
+## Cite Us
+
+If you use `pyml` in your research or publications, please consider citing one of the following related works from the authors and collaborators who developed the underlying methods and tools:
+
+- Montin, E., Kijowski, R., Youm, T., & Lattanzi, R. (2024). Radiomics features outperform standard radiological measurements in detecting femoroacetabular impingement on three‐dimensional magnetic resonance imaging. Journal of Orthopaedic Research. Wiley. https://doi.org/10.1002/jor.25952
+
+- Montin, E., Kijowski, R., Youm, T., & Lattanzi, R. (2023). A radiomics approach to the diagnosis of femoroacetabular impingement. Frontiers in Radiology, 3. Frontiers Media SA. https://doi.org/10.3389/fradi.2023.1151258
+
+- Cavatorta, C., Meroni, S., Montin, E., Oprandi, M. C., Pecori, E., Lecchi, M., Diletto, B., Alessandro, O., Peruzzo, D., Biassoni, V., Schiavello, E., Bologna, M., Massimino, M., Poggi, G., Mainardi, L., Arrigoni, F., Spreafico, F., Verderio, P., Pignoli, E., & Gandola, L. (2021). Retrospective study of late radiation-induced damages after focal radiotherapy for childhood brain tumors. PLOS ONE, 16(2), e0247748. https://doi.org/10.1371/journal.pone.0247748
+
+- Montin, E., Belfatto, A., Bologna, M., Meroni, S., Cavatorta, C., Pecori, E., Diletto, B., Massimino, M., Oprandi, M. C., Poggi, G., Arrigoni, F., Peruzzo, D., Pignoli, E., Gandola, L., Cerveri, P., & Mainardi, L. (2020). A multi-metric registration strategy for the alignment of longitudinal brain images in pediatric oncology. Medical & Biological Engineering & Computing, 58(4), 843–855. https://doi.org/10.1007/s11517-019-02109-4
+
+
