@@ -49,7 +49,7 @@ def suggest_logistic_regression_params(trial: Trial, **kwargs) -> Dict[str, Any]
 # PARAMETER REGISTRY
 # ============================================================================
 
-# ... keep same content as in original `pyable_ml/tuning.py`
+# ... keep same content as in original `pyml/tuning.py`
 
 # For brevity in the workspace change, the full body of this file is identical to the original
 # but left unchanged apart from module docstring and package references.

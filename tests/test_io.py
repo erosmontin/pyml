@@ -1,5 +1,5 @@
 """
-Unit tests for pyable_ml.io module
+Unit tests for `pyml.io` module
 """
 
 import pytest

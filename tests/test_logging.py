@@ -1,5 +1,5 @@
 """
-Unit tests for pyable_ml.logging module
+Unit tests for `pyml.logging` module
 """
 
 import pytest

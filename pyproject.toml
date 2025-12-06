@@ -7,7 +7,7 @@ allow-direct-references = true
 
 [project]
 name = "pyml"
-version = "3.0.0"
+version = "v3"
 authors = [
   { name="Dr. Eros Montin, PhD", email="eros.montin@gmail.com" },
 ]

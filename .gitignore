@@ -1,4 +1,4 @@
-pyable_ml/__pycache__/
+pyml/__pycache__/
 *.pyc
 __pycache__/
 .ipynb_checkpoints/

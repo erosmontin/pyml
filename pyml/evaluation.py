@@ -244,5 +244,3 @@ def evaluate_pipeline(
     )
     
     return evaluator.evaluate(estimator, X, y, feature_selector=feature_selector)
-
-*** End Fragment

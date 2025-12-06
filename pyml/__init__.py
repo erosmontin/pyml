@@ -4,7 +4,7 @@ pyml: Shared ML utilities for pyfe and treno
 Lightweight ML utilities with optional heavy dependencies.
 """
 
-__version__ = "3.0.0"
+__version__ = "v3"
 
 # Core exports (always available)
 from .io import save_model, load_model
