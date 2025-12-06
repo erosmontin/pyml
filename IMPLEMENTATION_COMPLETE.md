@@ -1,24 +1,24 @@
-# Implementation Complete: pyable-ml Shared Utilities Package
+# Implementation Complete: pyml Shared Utilities Package
 
 ## Executive Summary
 
-I've successfully created `pyable-ml`, a shared ML utilities package that eliminates code duplication between `pyfe` and `treno`. The package is fully functional, tested, and both downstream packages have been updated to use it while maintaining backward compatibility.
+I've successfully created `pyml`, a shared ML utilities package that eliminates code duplication between `pyfe` and `treno`. The package is fully functional, tested, and both downstream packages have been updated to use it while maintaining backward compatibility.
 
 ## What Was Done
 
-### 1. Created pyable-ml Package ✅
+### 1. Created pyml Package ✅
 
 **Location:** `/home/erosm/packages/pyable-ml`
 
 **Structure:**
 ```
-pyable-ml/
+pyml/
 ├── pyproject.toml           # Package config with optional dependencies
 ├── README.md                # Full documentation
 ├── LICENSE                  # MIT license
 ├── MIGRATION_GUIDE.md       # Detailed migration instructions
 ├── PACKAGE_SUMMARY.md       # Feature overview
-├── pyable_ml/
+├── pyml/
 │   ├── __init__.py          # Main exports
 │   ├── io.py                # Model save/load (250 lines)
 │   ├── tuning.py            # Optuna optimization (copied from pyfe)
@@ -27,41 +27,41 @@ pyable-ml/
 │   ├── training.py          # ExperimentTracker (copied from pyfe)
 │   └── evaluation.py        # ModelEvaluator (copied from pyfe)
 └── tests/
-    ├── test_io.py           # ✅ Passing
-    ├── test_logging.py      # ✅ Passing
-    └── test_smoke.py        # ✅ Passing
+   ├── test_io.py           # ✅ Passing
+   ├── test_logging.py      # ✅ Passing
+   └── test_smoke.py        # ✅ Passing
 ```
 
 ### 2. Core Features Implemented
 
-#### Model I/O (`pyable_ml.io`)
+#### Model I/O (`pyml.io`)
 - Unified save/load for sklearn and PyTorch models
 - Automatic backend detection
 - Metadata sidecar files
 - Checkpoint utilities
 
-#### Hyperparameter Tuning (`pyable_ml.tuning`)
+#### Hyperparameter Tuning (`pyml.tuning`)
 - Full Optuna wrapper from pyfe
 - 20+ estimator parameter spaces
 - TPE sampler, median pruner
 
-#### Logging (`pyable_ml.logging`)
+#### Logging (`pyml.logging`)
 - Structured logging with file + console
 - MetricsLogger for automatic averaging
 - Optional MLFlow integration
 - Warning suppression
 
-#### Plotting (`pyable_ml.plotting`)
+#### Plotting (`pyml.plotting`)
 - Grid search visualization
 - Optuna study plots
 - **NEW:** Training curves plotter
 - Feature heatmaps
 
-#### Experiment Tracking (`pyable_ml.training`)
+#### Experiment Tracking (`pyml.training`)
 - SQLite-based experiment tracker
 - Full implementation from pyfe
 
-#### Evaluation (`pyable_ml.evaluation`)
+#### Evaluation (`pyml.evaluation`)
 - Cross-validation evaluator
 - SMOTE support
 - Full implementation from pyfe
@@ -69,17 +69,17 @@ pyable-ml/
 ### 3. Updated Downstream Packages ✅
 
 #### pyfe Updates
-- ✅ Added `pyable-ml[optuna,plotting]` to dependencies
+- ✅ Added `pyml[optuna,plotting]` to dependencies
 - ✅ Created backward-compatibility shims in `pyfe/learn/`:
-  - `optimizer.py` → imports from `pyable_ml.tuning`
-  - `visualization.py` → imports from `pyable_ml.plotting`
-  - `tracker.py` → imports from `pyable_ml.training`
-  - `evaluator.py` → imports from `pyable_ml.evaluation`
+   - `optimizer.py` → imports from `pyml.tuning`
+   - `visualization.py` → imports from `pyml.plotting`
+   - `tracker.py` → imports from `pyml.training`
+   - `evaluator.py` → imports from `pyml.evaluation`
 - ✅ All shims show deprecation warnings
 - ✅ Old code still works
 
 #### treno Updates
-- ✅ Added `pyable-ml[torch,plotting]` to dependencies
+- ✅ Added `pyml[torch,plotting]` to dependencies
 - ✅ Added deprecation warnings to `save_model`, `load_model`, `save_checkpoint`, `load_checkpoint`
 - ✅ Old code still works
 
@@ -87,7 +87,7 @@ pyable-ml/
 
 All tests passing:
 ```bash
-# pyable-ml core tests
+# pyml core tests
 ✓ test_io.py - Model save/load works
 ✓ test_logging.py - Logging utilities work
 ✓ test_smoke.py - All imports successful
@@ -102,20 +102,20 @@ All tests passing:
 ### Install for Development
 
 ```bash
-# 1. Install pyable-ml
+# 1. Install pyml
 cd /home/erosm/packages/pyable-ml
 pip install -e .[all]
 
-# 2. Install pyfe (will use local pyable-ml)
+# 2. Install pyfe (will use local pyml)
 cd /home/erosm/packages/pyfe
 pip install -e .
 
-# 3. Install treno (will use local pyable-ml)
+# 3. Install treno (will use local pyml)
 cd /home/erosm/packages/treno
 pip install -e .
 ```
 
-### New Code Should Use
+# New Code Should Use
 
 ```python
 # Instead of:
@@ -124,20 +124,20 @@ from pyfe.learn.visualization import plot_optuna_study
 from treno.models import save_model, load_model
 
 # Use:
-from pyable_ml.tuning import OptunaOptimizer
-from pyable_ml.plotting import plot_optuna_study, plot_training_curves
-from pyable_ml.io import save_model, load_model
+from pyml.tuning import OptunaOptimizer
+from pyml.plotting import plot_optuna_study, plot_training_curves
+from pyml.io import save_model, load_model
 ```
 
 ### Optional Dependencies
 
 ```bash
-pip install pyable-ml              # Core only
-pip install pyable-ml[optuna]      # + hyperparameter tuning
-pip install pyable-ml[plotting]    # + visualization
-pip install pyable-ml[torch]       # + PyTorch model I/O
-pip install pyable-ml[mlflow]      # + MLFlow logging
-pip install pyable-ml[all]         # Everything
+pip install pyml              # Core only
+pip install pyml[optuna]      # + hyperparameter tuning
+pip install pyml[plotting]    # + visualization
+pip install pyml[torch]       # + PyTorch model I/O
+pip install pyml[mlflow]      # + MLFlow logging
+pip install pyml[all]         # Everything
 ```
 
 ## Benefits Achieved
@@ -190,9 +190,9 @@ This beats merging pyfe+treno because:
    - `/home/erosm/packages/pyable-ml/PACKAGE_SUMMARY.md` - Feature summary
 
 2. **Core modules:**
-   - `/home/erosm/packages/pyable-ml/pyable_ml/io.py` - Model I/O
-   - `/home/erosm/packages/pyable-ml/pyable_ml/logging.py` - Logging
-   - `/home/erosm/packages/pyable-ml/pyable_ml/plotting.py` - Enhanced plotting
+   - `/home/erosm/packages/pyable-ml/pyml/io.py` - Model I/O
+   - `/home/erosm/packages/pyable-ml/pyml/logging.py` - Logging
+   - `/home/erosm/packages/pyable-ml/pyml/plotting.py` - Enhanced plotting
 
 3. **Updated dependencies:**
    - `/home/erosm/packages/pyfe/pyproject.toml` - Added pyable-ml

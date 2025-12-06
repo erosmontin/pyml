@@ -6,8 +6,8 @@ build-backend = "hatchling.build"
 allow-direct-references = true
 
 [project]
-name = "pyable-ml"
-version = "0.1.0"
+name = "pyml"
+version = "3.0.0"
 authors = [
   { name="Dr. Eros Montin, PhD", email="eros.montin@gmail.com" },
 ]
@@ -53,5 +53,5 @@ all = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/erosmontin/pyable-ml"
-"Bug Tracker" = "https://github.com/erosmontin/pyable-ml/issues"
+"Homepage" = "https://github.com/erosmontin/pyml"
+"Bug Tracker" = "https://github.com/erosmontin/pyml/issues"

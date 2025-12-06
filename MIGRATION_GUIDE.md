@@ -1,6 +1,6 @@
-# pyable-ml Migration Guide
+# pyml Migration Guide
 
-This document explains how to migrate `pyfe` and `treno` to use the shared `pyable-ml` utilities package.
+This document explains how to migrate `pyfe` and `treno` to use the shared `pyml` utilities package.
 
 ## What Changed
 
@@ -9,24 +9,24 @@ This document explains how to migrate `pyfe` and `treno` to use the shared `pyab
 - **treno**: Had its own `save_model`, `load_model`, checkpoint utilities in `treno.models`
 
 ### After (Shared Utilities)
-- **pyable-ml**: New shared package containing:
-  - `pyable_ml.tuning`: Optuna hyperparameter optimization
-  - `pyable_ml.io`: Model save/load for sklearn and PyTorch
-  - `pyable_ml.logging`: Structured logging with MLFlow support
-  - `pyable_ml.plotting`: Training curves, Optuna plots, feature heatmaps
-  - `pyable_ml.training`: Experiment tracking with SQLite
-  - `pyable_ml.evaluation`: Cross-validation evaluators
+- **pyml**: New shared package containing:
+    - `pyml.tuning`: Optuna hyperparameter optimization
+    - `pyml.io`: Model save/load for sklearn and PyTorch
+    - `pyml.logging`: Structured logging with MLFlow support
+    - `pyml.plotting`: Training curves, Optuna plots, feature heatmaps
+    - `pyml.training`: Experiment tracking with SQLite
+    - `pyml.evaluation`: Cross-validation evaluators
 
 ## Migration Steps
 
-### 1. Install pyable-ml
+### 1. Install pyml
 
 ```bash
 # For pyfe (needs plotting and optuna)
-pip install -e ../pyable-ml[optuna,plotting]
+pip install -e ../pyml[optuna,plotting]
 
 # For treno (needs torch and plotting)
-pip install -e ../pyable-ml[torch,plotting]
+pip install -e ../pyml[torch,plotting]
 ```
 
 ### 2. Update pyproject.toml Dependencies
@@ -35,7 +35,7 @@ pip install -e ../pyable-ml[torch,plotting]
 ```toml
 dependencies = [
     # ... existing deps ...
-    "pyable-ml[optuna,plotting]",
+    "pyml[optuna,plotting]",
 ]
 ```
 
@@ -43,7 +43,7 @@ dependencies = [
 ```toml
 dependencies = [
     # ... existing deps ...
-    "pyable-ml[torch,plotting]",
+    "pyml[torch,plotting]",
 ]
 ```
 
@@ -61,10 +61,10 @@ from pyfe.learn.evaluator import ModelEvaluator
 
 **New imports:**
 ```python
-from pyable_ml.tuning import OptunaOptimizer, suggest_params
-from pyable_ml.plotting import plot_optuna_study, plot_grid_search_results, plot_training_curves
-from pyable_ml.training import ExperimentTracker
-from pyable_ml.evaluation import ModelEvaluator
+from pyml.tuning import OptunaOptimizer, suggest_params
+from pyml.plotting import plot_optuna_study, plot_grid_search_results, plot_training_curves
+from pyml.training import ExperimentTracker
+from pyml.evaluation import ModelEvaluator
 ```
 
 #### In treno
@@ -76,7 +76,7 @@ from treno.models import save_model, load_model, save_checkpoint, load_checkpoin
 
 **New imports:**
 ```python
-from pyable_ml.io import save_model, load_model, save_checkpoint, load_checkpoint
+from pyml.io import save_model, load_model, save_checkpoint, load_checkpoint
 ```
 
 ### 4. Add Backward Compatibility Shims (Temporary)
@@ -86,40 +86,40 @@ To maintain backward compatibility for one release, add re-exports in the old lo
 **pyfe/pyfe/learn/optimizer.py:**
 ```python
 """
-DEPRECATED: Use pyable_ml.tuning instead.
+DEPRECATED: Use pyml.tuning instead.
 This module is kept for backward compatibility and will be removed in v3.0.
 """
 import warnings
 warnings.warn(
-    "pyfe.learn.optimizer is deprecated. Use pyable_ml.tuning instead.",
+    "pyfe.learn.optimizer is deprecated. Use pyml.tuning instead.",
     DeprecationWarning,
     stacklevel=2
 )
 
-from pyable_ml.tuning import OptunaOptimizer, suggest_params
+from pyml.tuning import OptunaOptimizer, suggest_params
 
 __all__ = ["OptunaOptimizer", "suggest_params"]
 ```
 
 **treno/treno/models.py** (keep existing functions but add deprecation):
 ```python
-from pyable_ml.io import save_model as _save_model, load_model as _load_model
+from pyml.io import save_model as _save_model, load_model as _load_model
 
 def save_model(model, path):
-    """DEPRECATED: Use pyable_ml.io.save_model instead."""
+    """DEPRECATED: Use pyml.io.save_model instead."""
     import warnings
     warnings.warn(
-        "treno.models.save_model is deprecated. Use pyable_ml.io.save_model instead.",
+        "treno.models.save_model is deprecated. Use pyml.io.save_model instead.",
         DeprecationWarning,
         stacklevel=2
     )
     return _save_model(model, path)
 
 def load_model(model, path, device='cpu'):
-    """DEPRECATED: Use pyable_ml.io.load_model instead."""
+    """DEPRECATED: Use pyml.io.load_model instead."""
     import warnings
     warnings.warn(
-        "treno.models.load_model is deprecated. Use pyable_ml.io.load_model instead.",
+        "treno.models.load_model is deprecated. Use pyml.io.load_model instead.",
         DeprecationWarning,
         stacklevel=2
     )
@@ -131,9 +131,9 @@ def load_model(model, path, device='cpu'):
 **pyfe/pyfe/__init__.py:**
 ```python
 # Add new exports
-from pyable_ml.tuning import OptunaOptimizer
-from pyable_ml.plotting import plot_optuna_study
-from pyable_ml.training import ExperimentTracker
+from pyml.tuning import OptunaOptimizer
+from pyml.plotting import plot_optuna_study
+from pyml.training import ExperimentTracker
 
 __all__ = [
     # ... existing exports ...
@@ -146,7 +146,7 @@ __all__ = [
 **treno/treno/__init__.py:**
 ```python
 # Replace old exports
-from pyable_ml.io import save_model, load_model, save_checkpoint, load_checkpoint
+from pyml.io import save_model, load_model, save_checkpoint, load_checkpoint
 
 __all__ = [
     # ... existing exports ...
@@ -171,7 +171,7 @@ cd /home/erosm/packages/treno
 grep -r "from treno.models import save_model" .
 ```
 
-Replace with new imports from `pyable_ml`.
+Replace with new imports from `pyml`.
 
 ### 7. Run Tests
 
@@ -203,7 +203,7 @@ load_model(model_instance, "model.pth", device="cuda")
 
 **New (pyable-ml):**
 ```python
-from pyable_ml.io import save_model, load_model
+from pyml.io import save_model, load_model
 
 # Save
 save_model(model, "model.pth")
@@ -217,13 +217,13 @@ model = load_model("model.pkl")
 
 ### Optuna Optimization
 
-No API changes - same interface in `pyable_ml.tuning` as in `pyfe.learn.optimizer`.
+No API changes - same interface in `pyml.tuning` as in `pyfe.learn.optimizer`.
 
 ### Plotting
 
 **New feature added:**
 ```python
-from pyable_ml.plotting import plot_training_curves
+from pyml.plotting import plot_training_curves
 
 history = {
     'loss': [0.5, 0.4, 0.3],
@@ -252,9 +252,9 @@ fig.savefig('training.png')
 ## Troubleshooting
 
 ### Import errors
-If you see `ModuleNotFoundError: No module named 'pyable_ml'`:
+If you see `ModuleNotFoundError: No module named 'pyml'`:
 ```bash
-pip install -e /path/to/pyable-ml
+pip install -e /path/to/pyml
 ```
 
 ### Missing optuna

@@ -3,7 +3,7 @@ Unit tests for pyable_ml.logging module
 """
 
 import pytest
-from pyable_ml.logging import get_logger, log_metrics, MetricsLogger
+from pyml.logging import get_logger, log_metrics, MetricsLogger
 
 
 def test_get_logger():

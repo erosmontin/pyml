@@ -7,7 +7,7 @@ import tempfile
 from pathlib import Path
 import numpy as np
 
-from pyable_ml.io import save_model, load_model
+from pyml.io import save_model, load_model
 
 
 def test_save_load_sklearn_model():
@@ -63,7 +63,7 @@ def test_save_load_with_metadata():
 def test_backend_autodetection():
     """Test automatic backend detection."""
     from sklearn.tree import DecisionTreeClassifier
-    from pyable_ml.io import _detect_backend
+    from pyml.io import _detect_backend
     
     model = DecisionTreeClassifier()
     backend = _detect_backend(model)

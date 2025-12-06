@@ -1,28 +1,10 @@
 """
-Backward-compatibility shim for old import path `pyable_ml`.
-
-This module re-exports the public API from the new `pyml` package
-and emits a deprecation warning so downstream projects have time to migrate.
-"""
-import warnings
-
-warnings.warn(
-    "The `pyable_ml` package has been renamed to `pyml`. "
-    "Import from `pyml` instead. This shim will be removed in a future release.",
-    DeprecationWarning,
-    stacklevel=2,
-)
-
-from pyml import *  # re-export public symbols from new package
-
-__all__ = getattr(__import__("pyml"), "__all__", [])
-"""
-pyable-ml: Shared ML utilities for pyfe and treno
+pyml: Shared ML utilities for pyfe and treno
 
 Lightweight ML utilities with optional heavy dependencies.
 """
 
-__version__ = "0.1.0"
+__version__ = "3.0.0"
 
 # Core exports (always available)
 from .io import save_model, load_model
