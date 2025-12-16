@@ -205,7 +205,7 @@ def _load_torch_model(
         )
     
     # Load state dict
-    state_dict = torch.load(path, map_location=device)
+    state_dict = torch.load(path, map_location=device, weights_only=True)
     model_class.load_state_dict(state_dict)
     model_class.eval()
     
@@ -307,7 +307,7 @@ def load_checkpoint(
             "Install with: pip install pyml[torch]"
         )
     
-    checkpoint = torch.load(path, map_location=device)
+    checkpoint = torch.load(path, map_location=device, weights_only=False)
     
     if model is not None:
         model.load_state_dict(checkpoint["model_state_dict"])
